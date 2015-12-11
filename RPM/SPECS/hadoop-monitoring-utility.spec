@@ -14,6 +14,7 @@ BuildRequires: PyYAML
 BuildRequires: python-setuptools
 %{lua:
 if rpm.expand("%{dist}") == "el6" then
+  print("BuildRequires: python-dictconfig\n")
   print("BuildRequires: python-argparse\n")
 end
 }
@@ -54,7 +55,7 @@ bin/hadoop-monitoring-generate-mibs
 
 %install
 python setup.py install --single-version-externally-managed -O1 --root=%{buildroot} --record=INSTALLED_FILES
-mkdir %{buildroot}/etc/snmp/subagent/mibs
+mkdir -p %{buildroot}/etc/snmp/subagent/mibs
 cp target/*.functions %{buildroot}/etc/snmp/subagent/
 cp target/*.txt %{buildroot}/etc/snmp/subagent/mibs
 find %{buildroot}/etc/snmp/subagent/mibs >> INSTALLED_FILES

@@ -85,7 +85,7 @@ class MIBOutputFormatter:
         return result
 
     def get_templates(self):
-        for filename in glob.glob("%s/*.txt" % self.templatedir):
+        for filename in glob.glob("%s/*" % self.templatedir):
             basename = os.path.basename(filename)
             yield basename, self.env.get_template(basename)
 
