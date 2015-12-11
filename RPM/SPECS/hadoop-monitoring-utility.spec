@@ -42,6 +42,8 @@ Hadoop cluster monitoring utility:
  - snmp integration (snmp-subagent)
  - human readable output
 
+%prep
+
 %setup -n %{name}-%{version}
 
 %build
