@@ -49,7 +49,10 @@ def setup_logging(config):
         'loggers': {
             'monitoring': {},
             'urllib3': {
-                'level': 'ERROR'
+                'level': 'ERROR',
+            },
+            'requests': {
+                'level': 'ERROR',
             },
         }
     }

@@ -78,7 +78,7 @@ class JMXClient(Client):
         try:
             bean = query['bean']
             attr = query['attr']
-            return 'get -b %s -s -q %s' % (bean, attr)
+            return 'get -b %s -s -q %s\n' % (bean, attr)
         except Exception, e:
             raise KeyError('invalid query: %s', e.message)
 
