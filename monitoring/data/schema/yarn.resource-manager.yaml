@@ -1,0 +1,200 @@
+oid: 3.1
+name: yarn.resource-manager
+requests:
+  - query: /ws/v1/cluster/metrics
+    resources:
+      - oid: 1
+        name: apps
+        resources:
+          - oid: 1
+            name: completed
+            path: => clusterMetrics => appsCompleted
+            type: Gauge32
+            unit: applications
+          - oid: 2
+            name: failed
+            path: => clusterMetrics => appsFailed
+            type: Gauge32
+            unit: applications
+          - oid: 3
+            name: killed
+            path: => clusterMetrics => appsKilled
+            type: Gauge32
+            unit: applications
+          - oid: 4
+            name: pending
+            path: => clusterMetrics => appsPending
+            type: Gauge32
+            unit: applications
+          - oid: 5
+            name: running
+            path: => clusterMetrics => appsRunning
+            type: Gauge32
+            unit: applications
+          - oid: 6
+            name: submitted
+            path: => clusterMetrics => appsSubmitted
+            type: Gauge32
+            unit: applications
+      - oid: 2
+        name: containers
+        resources:
+          - oid: 1
+            name: allocated
+            path: => clusterMetrics => containersAllocated
+            type: Gauge32
+            unit: containers
+          - oid: 2
+            name: pending
+            path: => clusterMetrics => containersPending
+            type: Gauge32
+            unit: containers
+          - oid: 3
+            name: reserved
+            path: => clusterMetrics => containersReserved
+            type: Gauge32
+            unit: containers
+      - oid: 3
+        name: nodes
+        resources:
+          - oid: 1
+            name: active
+            path: => clusterMetrics => activeNodes
+            type: Gauge32
+            unit: nodes
+          - oid: 2
+            name: decommissioned
+            path: => clusterMetrics => decommissionedNodes
+            type: Gauge32
+            unit: nodes
+          - oid: 3
+            name: lost
+            path: => clusterMetrics => lostNodes
+            type: Gauge32
+            unit: nodes
+          - oid: 4
+            name: rebooted
+            path: => clusterMetrics => rebootedNodes
+            type: Gauge32
+            unit: nodes
+          - oid: 5
+            name: total
+            path: => clusterMetrics => totalNodes
+            type: Gauge32
+            unit: nodes
+      - oid: 4
+        name: memory
+        resources:
+          - oid: 1
+            name: allocated
+            path: => clusterMetrics => allocatedMB
+            type: Gauge32
+            unit: MiB
+          - oid: 2
+            name: available
+            path: => clusterMetrics => availableMB
+            type: Gauge32
+            unit: MiB
+          - oid: 3
+            name: reserved
+            path: => clusterMetrics => reservedMB
+            type: Gauge32
+            unit: MiB
+          - oid: 4
+            name: total
+            path: => clusterMetrics => totalMB
+            type: Gauge32
+            unit: MiB
+      - oid: 5
+        name: cores
+        resources:
+          - oid: 1
+            name: allocated
+            path: => clusterMetrics => allocatedVirtualCores
+            type: Gauge32
+            unit: cores
+          - oid: 2
+            name: available
+            path: => clusterMetrics => availableVirtualCores
+            type: Gauge32
+            unit: cores
+          - oid: 3
+            name: reserved
+            path: => clusterMetrics => reservedVirtualCores
+            type: Gauge32
+            unit: cores
+          - oid: 4
+            name: total
+            path: => clusterMetrics => totalVirtualCores
+            type: Gauge32
+            unit: cores
+  - query: /ws/v1/cluster/scheduler
+    resources:
+      - oid: 7
+        name: scheduler-queue
+        table:
+          path: => scheduler => schedulerInfo => rootQueue => childQueues
+          fields:
+            - oid: 1
+              name: index
+              path: => hash(key=queueName)
+              type: INTEGER
+            - oid: 2
+              name: name
+              path: => queueName
+              type: OCTET STRING
+            - oid: 3
+              name: max-cores
+              path: => maxResources => vCores
+              type: Gauge32
+              unit: cores
+            - oid: 4
+              name: max-memory
+              path: => maxResources => memory
+              type: Gauge32
+              unit: MiB
+            - oid: 5
+              name: used-cores
+              path: => usedResources => vCores
+              type: Gauge32
+              unit: cores
+            - oid: 6
+              name: used-memory
+              path: => usedResources => memory
+              type: Gauge32
+              unit: MiB
+            - oid: 7
+              name: fair-cores
+              path: => fairResources => vCores
+              type: Gauge32
+              unit: cores
+            - oid: 8
+              name: fair-memory
+              path: => fairResources => memory
+              type: Gauge32
+              unit: MiB
+            - oid: 9
+              name: steady-fair-cores
+              path: => steadyFairResources => vCores
+              type: Gauge32
+              unit: cores
+            - oid: 10
+              name: steady-fair-memory
+              path: => steadyFairResources => memory
+              type: Gauge32
+              unit: MiB
+            - oid: 11
+              name: max-apps
+              path: => maxApps
+              type: Counter64
+              unit: apps
+            - oid: 12
+              name: active-apps
+              path: => numActiveApps
+              type: Counter64
+              unit: apps
+            - oid: 13
+              name: pending-apps
+              path: => numPendingApps
+              type: Counter64
+              unit: apps

@@ -1,0 +1,62 @@
+oid: 2
+name: oozie
+requests:
+  - query: /oozie/v2/admin/instrumentation
+    resources:
+      - oid: 1
+        name: jobstatus
+        table:
+          path:  => counters => filter(group=jobs) => data
+          fields:
+            - oid: 1
+              name: index
+              path: => hash(key=name)
+              type: INTEGER
+            - oid: 2
+              name: name
+              path: => name
+              type: OCTET STRING
+            - oid: 3
+              name: count
+              path: => value
+              type: Counter32
+              unit: jobs
+      - oid: 2
+        name: memory
+        resources:
+          - oid: 1
+            name: max
+            path: => variables => filter(group=jvm) => data => 0 => value
+            type: Counter64
+            unit: bytes
+          - oid: 2
+            name: used
+            path: => variables => filter(group=jvm) => data => 1 => value
+            type: Counter64
+            unit: bytes
+          - oid: 3
+            name: free
+            path: => variables => filter(group=jvm) => data => 2 => value
+            type: Counter64
+            unit: bytes
+  - query: /oozie/v2/jobs?jobtype=bundle&filter=status%3DRUNNING%3Bstatus%3DRUNNINGWITHERROR
+    resources:
+      - oid: 3.1
+        name: running-jobs.bundles
+        path: => total
+        type: Gauge32
+        unit: bundles
+  - query: /oozie/v2/jobs?jobtype=coord&filter=status%3DRUNNING%3Bstatus%3DRUNNINGWITHERROR
+    resources:
+      - oid: 3.2
+        name: running-jobs.coordinators
+        path: => total
+        type: Gauge32
+        unit: coordinators
+  - query: /oozie/v2/jobs?filter=status%3DRUNNING
+    resources:
+      - oid: 3.3
+        name: running-jobs.workflows
+        path: => total
+        type: Gauge32
+        unit: workflows

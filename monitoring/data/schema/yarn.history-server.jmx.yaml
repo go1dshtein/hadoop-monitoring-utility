@@ -1,0 +1,26 @@
+oid: 3.3
+name: yarn.history-server
+requests:
+  - query:
+      bean: java.lang:type=Memory
+      attr: HeapMemoryUsage
+    resources:
+      - oid: 6
+        name: heap
+        resources:
+          - oid: 1
+            name: max
+            path: => max
+            type: Counter64
+            unit: bytes
+          - oid: 2
+            name: used
+            path: => used
+            type: Counter64
+            unit: bytes
+          - oid: 3
+            name: committed
+            path: => committed
+            type: Counter64
+            unit: bytes
+

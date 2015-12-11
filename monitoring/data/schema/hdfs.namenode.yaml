@@ -1,0 +1,115 @@
+oid: 1.1
+name: hdfs.namenode
+requests:
+  - query: /jmx?qry=Hadoop:service=NameNode,name=FSNamesystemState
+    resources:
+      - oid: 1
+        name: capacity
+        resources:
+          - oid: 1
+            name: total
+            path: => beans => 0 => CapacityTotal
+            type: Counter64
+            unit: bytes
+          - oid: 2
+            name: used
+            path: => beans => 0 => CapacityUsed
+            type: Counter64
+            unit: bytes
+          - oid: 3
+            name: remaining
+            path: => beans => 0 => CapacityRemaining
+            type: Counter64
+            unit: bytes
+      - oid: 2
+        name: blocks
+        resources:
+          - oid: 1
+            name: total
+            path: => beans => 0 => BlocksTotal
+            type: Gauge32
+            unit: blocks
+          - oid: 2
+            name: pending-deletion
+            path: => beans => 0 => PendingDeletionBlocks
+            type: Gauge32
+            unit: blocks
+          - oid: 3
+            name: pending-replication
+            path: => beans => 0 => PendingReplicationBlocks
+            type: Gauge32
+            unit: blocks
+          - oid: 4
+            name: under-replicated
+            path: => beans => 0 => UnderReplicatedBlocks
+            type: Gauge32
+            unit: blocks
+          - oid: 5
+            name: scheduled-replication
+            path: => beans => 0 => ScheduledReplicationBlocks
+            type: Gauge32
+            unit: blocks
+      - oid: 3
+        name: files
+        resources:
+          - oid: 1
+            name: total
+            path: => beans => 0 => FilesTotal
+            type: Gauge32
+            unit: files
+      - oid: 4
+        name: datanodes
+        resources:
+          - oid: 1
+            name: live
+            path: => beans => 0 => NumLiveDataNodes
+            type: Gauge32
+            unit: nodes
+          - oid: 2
+            name: dead
+            path: => beans => 0 => NumDeadDataNodes
+            type: Gauge32
+            unit: nodes
+          - oid: 3
+            name: decommission-live
+            path: => beans => 0 => NumDecomLiveDataNodes
+            type: Gauge32
+            unit: nodes
+          - oid: 4
+            name: decommission-dead
+            path: => beans => 0 => NumDecomDeadDataNodes
+            type: Gauge32
+            unit: nodes
+          - oid: 5
+            name: stale
+            path: => beans => 0 => NumStaleDataNodes
+            type: Gauge32
+            unit: nodes
+      - oid: 5
+        name: storages
+        resources:
+          - oid: 1
+            name: stale
+            path: => beans => 0 => NumStaleStorages
+            type: Gauge32
+            unit: storages
+  - query: /jmx?qry=java.lang:type=Memory
+    resources:
+      - oid: 6
+        name: heap
+        resources:
+          - oid: 1
+            name: max
+            path: => beans => 0 => HeapMemoryUsage => max
+            type: Counter64
+            unit: bytes
+          - oid: 2
+            name: used
+            path: => beans => 0 => HeapMemoryUsage => used
+            type: Counter64
+            unit: bytes
+          - oid: 3
+            name: committed
+            path: => beans => 0 => HeapMemoryUsage => committed
+            type: Counter64
+            unit: bytes

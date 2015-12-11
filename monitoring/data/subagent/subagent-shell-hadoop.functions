@@ -1,0 +1,28 @@
+# vim:syn=perl
+
+sub getHadoopStats {
+  my $o=shift;
+  my $cfg=shift;
+  my $t=gettimeofday();
+  my $cmd="/usr/bin/hadoop-monitoring-values --subagent";
+  my $res=0;
+
+  unless (open(STAT, $cmd)) {
+    logMessage(LOG_ERR, "can't process $cmd");
+    $res += 1;
+  }
+
+  while (<STAT>) {
+    chomp;
+    my ($id,$val) = split / = /, $_;
+    $$o{$id} = $val;
+  }
+  close(STAT);
+
+  $$o{'hadoopStatsFuncTime'} = sprintf('%.3f',scalar gettimeofday() - $t);
+  $$o{'hadoopStatsFuncResult'} = $res;
+
+  return $res;
+}
+
+return 1;

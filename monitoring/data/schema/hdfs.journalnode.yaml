@@ -1,0 +1,38 @@
+oid: 1.5
+name: hdfs.journalnode
+requests:
+  - query: /jmx?qry=Hadoop:service=JournalNode,name=Journal-*
+    resources:
+      - oid: 1
+        name: written
+        resources:
+          - oid: 1
+            name: batches
+            path: => beans => 0 => BatchesWritten
+            type: Counter64
+            unit: batches
+          - oid: 2
+            name: txns
+            path: => beans => 0 => TxnsWritten
+            type: Counter64
+            unit: txns
+  - query: /jmx?qry=java.lang:type=Memory
+    resources:
+      - oid: 6
+        name: heap
+        resources:
+          - oid: 1
+            name: max
+            path: => beans => 0 => HeapMemoryUsage => max
+            type: Counter64
+            unit: bytes
+          - oid: 2
+            name: used
+            path: => beans => 0 => HeapMemoryUsage => used
+            type: Counter64
+            unit: bytes
+          - oid: 3
+            name: committed
+            path: => beans => 0 => HeapMemoryUsage => committed
+            type: Counter64
+            unit: bytes

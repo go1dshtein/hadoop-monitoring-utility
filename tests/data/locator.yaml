@@ -1,0 +1,6 @@
+unittest:
+  class: DummyLocator
+
+unittest-argument:
+  class: DummyLocator
+  key: value

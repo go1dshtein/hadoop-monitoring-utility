@@ -1,0 +1,51 @@
+oid: 1.2
+name: hdfs.datanode
+requests:
+  - query: /jmx?qry=Hadoop:service=DataNode,name=FSDatasetState-null
+    resources:
+      - oid: 1
+        name: capacity
+        resources:
+          - oid: 1
+            name: total
+            path: => beans => 0 => Capacity
+            type: Counter64
+            unit: bytes
+          - oid: 3
+            name: remaining
+            path: => beans => 0 => Remaining
+            type: Counter64
+            unit: bytes
+      - oid: 2
+        name: cache
+        resources:
+          - oid: 1
+            name: total
+            path: => beans => 0 => CacheCapacity
+            type: Counter64
+            unit: bytes
+          - oid: 2
+            name: used
+            path: => beans => 0 => CacheUsed
+            type: Counter64
+            unit: bytes
+  - query: /jmx?qry=java.lang:type=Memory
+    resources:
+      - oid: 6
+        name: heap
+        resources:
+          - oid: 1
+            name: max
+            path: => beans => 0 => HeapMemoryUsage => max
+            type: Counter64
+            unit: bytes
+          - oid: 2
+            name: used
+            path: => beans => 0 => HeapMemoryUsage => used
+            type: Counter64
+            unit: bytes
+          - oid: 3
+            name: committed
+            path: => beans => 0 => HeapMemoryUsage => committed
+            type: Counter64
+            unit: bytes

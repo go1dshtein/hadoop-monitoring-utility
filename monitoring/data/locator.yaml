@@ -1,0 +1,62 @@
+# HDFS services
+hdfs.namenode:
+  class: HttpServiceLocator
+  port: 50070
+hdfs.datanode:
+  class: HttpServiceLocator
+  port: 50075
+hdfs.journalnode:
+  class: HttpServiceLocator
+  port: 8480
+hdfs.secondarynamenode:
+  class: HttpServiceLocator
+  port: 50090
+hdfs.zkfc.jmx:
+  class: ProcessLocator
+  pattern: "^.*?org.apache.hadoop.hdfs.tools.DFSZKFailoverController.*?$"
+
+# YARN services
+yarn.resource-manager:
+  class: HttpServiceLocator
+  port: 8088
+yarn.resource-manager.jmx:
+  class: ProcessLocator
+  pattern: "^.*?java.*?org.apache.hadoop.yarn.server.resourcemanager.ResourceManager$"
+yarn.node-manager.jmx:
+  class: ProcessLocator
+  pattern: "^.*?java.*?org.apache.hadoop.yarn.server.nodemanager.NodeManager$"
+yarn.history-server.jmx:
+  class: ProcessLocator
+  pattern: "^.*?java.*?org.apache.hadoop.mapreduce.v2.hs.JobHistoryServer.*?$"
+
+# Oozie service
+oozie:
+  class: HttpServiceLocator
+  port: 11000
+oozie.jmx:
+  class: ProcessLocator
+  pattern: "^.*?java.*?Doozie.home.dir=/usr/lib/oozie.*?$"
+
+# Hive services
+hive.server2.jmx:
+  class: ProcessLocator
+  pattern: "^.*?java.*?org.apache.hive.service.server.HiveServer2.*?$"
+hive.metastore.jmx:
+  class: ProcessLocator
+  pattern: "^.*?java.*?org.apache.hadoop.hive.metastore.HiveMetaStore.*?$"
+
+# Zookeeper
+zookeeper.jmx:
+  class: ProcessLocator
+  pattern: "^.*?java.*?org.apache.zookeeper.server.quorum.QuorumPeerMain.*?$"
+
+# Impala serivices
+impala.server:
+  class: HttpServiceLocator
+  port: 25000
+impala.statestore:
+  class: HttpServiceLocator
+  port: 25010
+impala.catalog:
+  class: HttpServiceLocator
+  port: 25020

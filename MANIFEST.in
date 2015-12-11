@@ -1,0 +1,3 @@
+include monitoring/data/locator.yaml
+include monitoring/data/schema/*.yaml
+include monitoring/data/subagent/*

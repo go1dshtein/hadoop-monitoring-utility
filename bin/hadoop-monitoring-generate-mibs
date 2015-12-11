@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+import os
+import argparse
+import logging
+
+from monitoring.config import get_default_templates_dir, get_config_variants
+from monitoring.config import load_config
+from monitoring.service import MIBGeneratorService
+from monitoring.utils import setup_logging
+
+
+def parse_args(args=None):
+    parser = argparse.ArgumentParser()
+    variants = ','.join(get_config_variants())
+    parser.add_argument('-c', '--config', type=str,
+                        help='configuration file, [search for %s]' % variants,
+                        default=None)
+    parser.add_argument('-t', '--templates', type=str,
+                        help='templates directory [%(default)s]',
+                        default=get_default_templates_dir())
+    parser.add_argument('output', type=str, nargs='?',
+                        help='output directory [%(default)s]',
+                        default='target')
+    return parser.parse_args(args)
+
+
+def main(args):
+    config = load_config(args.config)
+    setup_logging(config.logging)
+    global logger
+    logger = logging.getLogger("monitoring")
+    try:
+        logger.info("start: \n%s", args)
+        logger.info("config: \n%s", config)
+        service = MIBGeneratorService(args.templates)
+        objects = service.generate(
+            config.base.oid,
+            config.base.name)
+        service.output(args.output, objects)
+    except Exception, e:
+        logger.exception(e)
+        logger.info("done with code 1\n")
+        exit(1)
+    logger.info("done with code 0\n")
+    exit(0)
+
+if __name__ == '__main__':
+    args = parse_args()
+    main(args)

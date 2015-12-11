@@ -1,0 +1,117 @@
+oid: 6.1
+name: impala.server
+requests:
+  - query: /metrics?json
+    resources:
+      - oid: 1
+        name: connections
+        resources:
+          - oid: 1
+            name: backend
+            path: => metric_group => metrics => filter(name=impala.thrift-server.backend.connections-in-use) => value
+            type: Gauge32
+            unit: connections
+          - oid: 2
+            name: beeswax
+            path: => metric_group => metrics => filter(name=impala.thrift-server.beeswax-frontend.connections-in-use) => value
+            type: Gauge32
+            unit: connections
+          - oid: 3
+            name: hiveserver2
+            path: => metric_group => metrics => filter(name=impala.thrift-server.hiveserver2-frontend.connections-in-use) => value
+            type: Gauge32
+            unit: connections
+      - oid: 2
+        name: tcmalloc
+        resources:
+          - oid: 1
+            name: bytes-in-use
+            path: => metric_group => metrics => filter(name=tcmalloc.bytes-in-use) => value
+            type: Counter64
+            unit: bytes
+          - oid: 2
+            name: pageheap-free-bytes
+            path: => metric_group => metrics => filter(name=tcmalloc.pageheap-free-bytes) => value
+            type: Counter64
+            unit: bytes
+          - oid: 3
+            name: pageheap-unmapped-bytes
+            path: => metric_group => metrics => filter(name=tcmalloc.pageheap-unmapped-bytes) => value
+            type: Counter64
+            unit: bytes
+          - oid: 4
+            name: physical-bytes-reserved
+            path: => metric_group => metrics => filter(name=tcmalloc.physical-bytes-reserved) => value
+            type: Counter64
+            unit: bytes
+          - oid: 5
+            name: total-bytes-reserved
+            path: => metric_group => metrics => filter(name=tcmalloc.total-bytes-reserved) => value
+            type: Counter64
+            unit: bytes
+      - oid: 3
+        name: threads
+        resources:
+          - oid: 1
+            name: running
+            path: => metric_group => metrics => filter(name=thread-manager.running-threads) => value
+            type: Gauge32
+            unit: threads
+      - oid: 4
+        name: catalog
+        resources:
+          - oid: 1
+            name: databases
+            path: => metric_group => child_groups
+                  => filter(name=impala-server) => metrics
+                  => filter(name=catalog.num-databases) => value
+            type: Gauge32
+            unit: databases
+          - oid: 2
+            name: tables
+            path: => metric_group => child_groups
+                  => filter(name=impala-server) => metrics
+                  => filter(name=catalog.num-tables) => value
+            type: Gauge32
+            unit: tables
+      - oid: 5
+        name: sessions
+        resources:
+          - oid: 1
+            name: beeswax
+            path: => metric_group => child_groups
+                  => filter(name=impala-server) => metrics
+                  => filter(name=impala-server.num-open-beeswax-sessions) => value
+            type: Gauge32
+            unit: sessions
+          - oid: 2
+            name: hiveserver2
+            path: => metric_group => child_groups
+                  => filter(name=impala-server) => metrics
+                  => filter(name=impala-server.num-open-hiveserver2-sessions) => value
+            type: Gauge32
+            unit: sessions
+      - oid: 6
+        name: jvm-heap
+        resources:
+          - oid: 1
+            name: max
+            path: => metric_group => child_groups
+                  => filter(name=jvm) => metrics
+                  => filter(name=jvm.total.max-usage-bytes) => value
+            type: Counter64
+            unit: bytes
+          - oid: 2
+            name: used
+            path: => metric_group => child_groups
+                  => filter(name=jvm) => metrics
+                  => filter(name=jvm.total.current-usage-bytes) => value
+            type: Counter64
+            unit: bytes
+          - oid: 3
+            name: committed
+            path: => metric_group => child_groups
+                  => filter(name=jvm) => metrics
+                  => filter(name=jvm.total.committed-usage-bytes) => value
+            type: Counter64
+            unit: bytes

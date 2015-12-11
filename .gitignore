@@ -1,0 +1,13 @@
+*.pyc
+*.pyo
+*.egg-info
+.eggs/
+build/
+dist/
+env/
+target/
+thirdparty/
+*.swp
+tests/__pycache__
+.cache
+.tox
