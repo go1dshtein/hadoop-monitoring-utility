@@ -21,7 +21,7 @@ def test_init(client):
 
 FIXTURES = [
     ({'bean': 'java.lang:Bean', 'attr': 'BeanAttr'},
-     'get -b java.lang:Bean -s -q BeanAttr'),
+     'get -b java.lang:Bean -s -q BeanAttr\n'),
     ('java.lang:Bean;BeanAttr', None),
     (['java.lang:Bean;BeanAttr'], None),
     ({'value': 'java.lang:Bean;BeanAttr'}, None)
