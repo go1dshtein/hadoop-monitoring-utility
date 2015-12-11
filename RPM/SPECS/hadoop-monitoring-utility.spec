@@ -11,6 +11,7 @@ Vendor: Kirill Goldshtein <goldshtein.kirill@gmail.com>
 
 BuildRequires: python-jinja2
 BuildRequires: PyYAML
+BuildRequires: python-setuptools
 %{lua:
 if rpm.expand("%{dist}") == "el6" then
   print("BuildRequires: python-argparse\n")
@@ -48,6 +49,7 @@ Hadoop cluster monitoring utility:
 
 %build
 python setup.py build
+export PYTHONPATH=build/lib
 bin/hadoop-monitoring-generate-mibs
 
 %install

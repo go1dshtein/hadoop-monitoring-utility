@@ -6,7 +6,8 @@ from collections import namedtuple
 def make_config(data):
     base = namedtuple('Base', ('oid', 'name'))
     logging = namedtuple('Logging', ('filename', 'level'))
-    locator = namedtuple('Locator', ('filename', 'check_localhost'))
+    locator = namedtuple(
+        'Locator', ('filename', 'check_localhost', 'service_map'))
     schemas = namedtuple('Schemas', ('directory',))
     config = namedtuple('Config', ('base', 'logging', 'locator', 'schemas'))
 
