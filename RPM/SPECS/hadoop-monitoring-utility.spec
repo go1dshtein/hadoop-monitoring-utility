@@ -56,9 +56,10 @@ bin/hadoop-monitoring-generate-mibs
 %install
 python setup.py install --single-version-externally-managed -O1 --root=%{buildroot} --record=INSTALLED_FILES
 mkdir -p %{buildroot}/etc/snmp/subagent/mibs
-cp target/*.functions %{buildroot}/etc/snmp/subagent/
-cp target/*.txt %{buildroot}/etc/snmp/subagent/mibs
-find %{buildroot}/etc/snmp/subagent/mibs >> INSTALLED_FILES
+cp target/subagent-shell-hadoop.functions %{buildroot}/etc/snmp/subagent/
+cp target/SUBAGENT-SHELL-HADOOP-MIB.txt %{buildroot}/etc/snmp/subagent/mibs
+echo '/etc/snmp/subagent/subagent-shell-hadoop.functions' >> INSTALLED_FILES
+echo '/etc/snmp/subagent/mibs/SUBAGENT-SHELL-HADOOP-MIB.txt' >> INSTALLED_FILES
 
 %files -f INSTALLED_FILES
 %defattr(-, root, root)
