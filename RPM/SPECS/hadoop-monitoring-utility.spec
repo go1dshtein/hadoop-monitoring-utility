@@ -13,7 +13,7 @@ BuildRequires: python-jinja2
 BuildRequires: PyYAML
 BuildRequires: python-setuptools
 %{lua:
-if rpm.expand("%{dist}") == "el6" then
+if rpm.expand("%{dist}") == ".el6" then
   print("BuildRequires: python-dictconfig\n")
   print("BuildRequires: python-argparse\n")
 end
@@ -21,7 +21,7 @@ end
 
 Requires: java
 %{lua:
-if rpm.expand("%{dist}") == "el6" then
+if rpm.expand("%{dist}") == ".el6" then
   print("Requires: net-snmp-subagent\n")
 else
   print("Requires: net-snmp-subagent-shell\n")
@@ -29,7 +29,7 @@ end
 }
 Requires: jmxterm
 %{lua:
-if rpm.expand("%{dist}") == "el6" then
+if rpm.expand("%{dist}") == ".el6" then
   print("Requires: python-dictconfig\n")
   print("Requires: python-argparse\n")
 end
