@@ -1,0 +1,24 @@
+# it is mapping
+# node -> [service's dotted name]
+# dotted names are defined by used schemas
+
+node0:
+  - hdfs.namenode
+  - hive.metastore
+  - yarn.resource-manager
+
+node1:
+  - zookeeper
+  - hdfs.datanode
+  - yarn.node-manager
+
+node2:
+  - zookeeper
+  - hdfs.datanode
+  - yarn.node-manager
+
+node3:
+  - zookeeper
+  - hdfs.datanode
+  - yarn.node-manager
+

@@ -1,0 +1,30 @@
+base:
+  # snmp oid prefix,
+  # default hadoop
+  # NOTE: regenerate mib files after change
+  oid: hadoop
+  # snmp name prefix
+  # default hadoop
+  # NOTE: regenerate mib files after change
+  name: hadoop
+
+locator:
+  # path to yaml file that define relation between services and their metric's schemas
+  # default monitoring/data/locator.yaml
+  filename: /path/to/locator.yaml
+  # path to yaml file that provides information about expected services on each node
+  # optional
+  service_map: /path/to/service-map.yaml
+
+schemas:
+  # path to directory that contains files with description of service's metrics
+  # default monitoring/data/schema
+  directory: /path/to/schemas/directory/
+
+logging:
+  # log filename
+  # optional, if it is undefined stderr is used.
+  filename: /path/to/log.file
+  # log level (for file log)
+  # default INFO
+  level: ERROR

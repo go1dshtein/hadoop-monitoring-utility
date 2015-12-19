@@ -7,7 +7,7 @@ def make_config(data):
     base = namedtuple('Base', ('oid', 'name'))
     logging = namedtuple('Logging', ('filename', 'level'))
     locator = namedtuple(
-        'Locator', ('filename', 'check_localhost', 'service_map'))
+        'Locator', ('filename', 'service_map'))
     schemas = namedtuple('Schemas', ('directory',))
     config = namedtuple('Config', ('base', 'logging', 'locator', 'schemas'))
 
@@ -18,7 +18,6 @@ def make_config(data):
         data.get('logging', {}).get('level', 'INFO'))
     locator = locator(
         data.get('locator', {}).get('filename', get_default_locator_config()),
-        data.get('locator', {}).get('check_localhost', True),
         data.get('locator', {}).get('service_map'))
     schemas = schemas(
         data.get('schemas', {}).get('directory', get_default_schemas_dir()))
