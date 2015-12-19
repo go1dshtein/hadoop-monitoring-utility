@@ -1,9 +1,12 @@
 #!/usr/bin/env python2
+import os
 from setuptools import setup
 
 setup(name='hadoop-monitoring-utility',
       version='0.0.1',
       description="monitoring utility for hadoop cluster",
+      long_description=open(
+          os.path.join(os.path.dirname(__file__), 'README.rst')).read(),
       author='Kirill Goldshtein',
       author_email='goldshtein.kirill@gmail.com',
       packages=['monitoring'],
