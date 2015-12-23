@@ -12,28 +12,16 @@ Vendor: Kirill Goldshtein <goldshtein.kirill@gmail.com>
 BuildRequires: python-jinja2
 BuildRequires: PyYAML
 BuildRequires: python-setuptools
-%{lua:
-if rpm.expand("%{dist}") == ".el6" then
-  print("BuildRequires: python-dictconfig\n")
-  print("BuildRequires: python-argparse\n")
-end
-}
+
+%if "%{?dist}" == ".el6"
+BuildRequires: python-dictconfig
+BuildRequires: python-argparse
+Requires: python-dictconfig
+Requires: python-argparse
+%endif
 
 Requires: java
-%{lua:
-if rpm.expand("%{dist}") == ".el6" then
-  print("Requires: net-snmp-subagent\n")
-else
-  print("Requires: net-snmp-subagent-shell\n")
-end
-}
 Requires: jmxterm
-%{lua:
-if rpm.expand("%{dist}") == ".el6" then
-  print("Requires: python-dictconfig\n")
-  print("Requires: python-argparse\n")
-end
-}
 Requires: PyYAML
 Requires: python-psutil
 Requires: python-requests
@@ -64,3 +52,6 @@ echo '/etc/snmp/subagent-shell/mibs/SUBAGENT-SHELL-HADOOP-MIB.txt' >> INSTALLED_
 %files -f INSTALLED_FILES
 %defattr(-, root, root)
 
+%changelog
+* Wed Dec 23 2015  Kirill Goldshtein <goldshtein.kirill@gmail.com> - 0.0.1-1.el6
+- initial release

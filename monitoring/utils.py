@@ -11,10 +11,11 @@ def setup_logging(config):
         # let's use backported version
         from dictconfig import dictConfig
 
-    if os.path.exists('/dev/log'):
-        logsocket = '/dev/log'
-    else:
-        logsocket = '/var/run/syslog'
+    syslog_variants = ('/dev/log', '/var/run/syslog')
+    logsocket = None
+    for variant in syslog_variants:
+        if os.path.exists(variant):
+            logsocket = variant
 
     logconfig = {
         'version': 1,
@@ -62,6 +63,10 @@ def setup_logging(config):
             'formatter': 'file',
             'stream': sys.stderr
         }
+
+    if logsocket is None:
+        del logconfig['handlers']['syslog']
+        logconfig['root']['handlers'] = ['file']
     dictConfig(logconfig)
 
 
