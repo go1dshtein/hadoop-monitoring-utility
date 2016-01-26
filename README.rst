@@ -1,3 +1,5 @@
+.. image:: https://travis-ci.org/go1dshtein/hadoop-monitoring-utility.svg?branch=master
+
 hadoop-monitoring-utility
 -------------------------
 It is an easiest way to implement SNMP monitoring  over Hadoop cluster.
