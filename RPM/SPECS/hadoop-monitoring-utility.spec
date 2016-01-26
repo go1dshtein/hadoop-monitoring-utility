@@ -25,6 +25,7 @@ Requires: jmxterm
 Requires: PyYAML
 Requires: python-psutil
 Requires: python-requests
+Requires: python-jinja2
 
 %description
 Hadoop cluster monitoring utility:
